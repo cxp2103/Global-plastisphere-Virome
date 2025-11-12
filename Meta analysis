@@ -1,0 +1,40 @@
+#Fig.5a & Fig.S13
+library(metafor)
+########################################①TP
+#载入数据
+RR  <-  read.delim("data-TP.txt",sep="\t",header = T,check.names=F, row.names=1)   
+
+#calculate overall responses
+rem <- rma(LRR,LRR_var,data = RR,method="DL") 
+summary(rem) 
+
+#egger's test and funnel plot
+regtest(rem)        
+funnel(rem, xlab="Effect size")  
+
+#group
+rem_NBPs <- rma(LRR,LRR_var,data = RR, subset=(group=="NBPs"),method="DL")
+rem_NBPs
+rem_BPs <- rma(LRR,LRR_var,data = RR, subset=(group=="BPs"),method="DL")
+rem_BPs
+rem_group <- rma(LRR,LRR_var,data = RR, mods = ~factor(group), method="DL")
+rem_group
+
+########################################②AP
+#载入数据
+RR  <-  read.delim("data-AP.txt",sep="\t",header = T,check.names=F, row.names=1)   
+
+#calculate overall responses
+rem <- rma(LRR,LRR_var,data = RR,method="DL") 
+summary(rem) 
+#egger's test and funnel plot
+regtest(rem)        
+funnel(rem, xlab="Effect size") 
+
+#group
+rem_NBPs <- rma(LRR,LRR_var,data = RR, subset=(group=="NBPs"),method="DL")
+rem_NBPs
+rem_BPs <- rma(LRR,LRR_var,data = RR, subset=(group=="BPs"),method="DL")
+rem_BPs
+rem_group <- rma(LRR,LRR_var,data = RR, mods = ~factor(group), method="DL")
+rem_group
